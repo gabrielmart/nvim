@@ -1,4 +1,7 @@
 {
-    "suggest.floatEnable":true,
+    "suggest.floatEnable": true,
+    "diagnostic.enable": false,
+    "editor.snippetSuggestions": "top",
+
 }
 

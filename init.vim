@@ -10,21 +10,21 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'yggdroot/indentline'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'honza/vim-snippets'
+" Plug 'honza/vim-snippets'
 Plug 'vim-airline/vim-airline'
 Plug 'jiangmiao/auto-pairs'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/syntastic'
 Plug 'ryanoasis/vim-devicons'
 Plug 'dracula/vim', { 'name': 'dracula' }
-
 call plug#end()
 
 colorscheme dracula
+set termguicolors
 syntax on
+set formatoptions-=cro
 set encoding=utf-8
 set hidden " Oculta buffers quando são abandonados
-set formatoptions-=cro
 set tabstop=4 shiftwidth=4 softtabstop=4 expandtab 
 set relativenumber
 set cursorline
@@ -75,16 +75,16 @@ map <leader>h :tabprevious <cr>
 " Comando para abrir terminal
 nmap <leader>' :term <CR>
 
-nnoremap <A-j> :m .+1<CR>==
 " Move uma unica linha
+nnoremap <A-j> :m .+1<CR>==
 nnoremap <A-k> :m .-2<CR>==
 
 " Move linha no mode de inserção
 inoremap <A-j> <Esc>:m .+1<CR>==gi
 inoremap <A-k> <Esc>:m .-2<CR>==gi
 
-vnoremap <A-j> :m '>+1<CR>gv=gv
 " Move multiplas linhas selecionadas
+vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
 
@@ -99,7 +99,6 @@ nnoremap <F12> :source % <CR> :echo "VIMRC CARREGADO!" <CR>
 
 " [1]
 " Configuração para indentLine
-
 " Escolhe o caracter da marcação da identação
 let g:indentLine_char = '│'
 
@@ -129,7 +128,12 @@ endfunction
 noremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr> <C-j> pumvisible() ? '<C-n>' : ''
 inoremap <expr> <C-k> pumvisible() ? '<C-p>' : ''
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : 
+            \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+let g:coc_snippet_next = '<TAB>'
+let g:coc_snippet_prev = '<S-TAB>'
 
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
