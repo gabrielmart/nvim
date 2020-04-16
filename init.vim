@@ -12,14 +12,19 @@ Plug 'yggdroot/indentline'
 Plug 'ctrlpvim/ctrlp.vim'
 " Plug 'honza/vim-snippets'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'jiangmiao/auto-pairs'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/syntastic'
 Plug 'ryanoasis/vim-devicons'
 Plug 'dracula/vim', { 'name': 'dracula' }
+Plug 'andreypopp/vim-colors-plain'
+
 call plug#end()
 
-colorscheme dracula
+let g:airline_theme='minimalist'
+set background=dark
+colorscheme plain
 set termguicolors
 syntax on
 set formatoptions-=cro
@@ -44,7 +49,7 @@ set nobackup
 set nowritebackup
 set noswapfile
 
-let mapleader = "\<space>"
+let mapleader = "z"
 
 " Shortcuts
 
@@ -80,13 +85,15 @@ nnoremap <A-j> :m .+1<CR>==
 nnoremap <A-k> :m .-2<CR>==
 
 " Move linha no mode de inserção
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
+" inoremap <A-k> <Esc>:m .-2<CR>==gi
+" inoremap <A-j> <Esc>:m .+1<CR>==gi
 
 " Move multiplas linhas selecionadas
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
+" vnoremap <A-j> :m '>+1<CR>gv=gv
+" vnoremap <A-k> :m '<-2<CR>gv=gv
 
+" Configura a clipboard
+set clipboard+=unnamedplus 
 
 " Comando para identar arquivo
 map <A-i> mqHmwgg=G`wzt`q :echo 'IDENTAÇÃO REALIZADA' <CR>
@@ -106,66 +113,9 @@ let g:indentLine_char = '│'
 let g:indentLine_setColors = 0
 
 " Escolhe uma cor para o caracter da identação
-let g:indentLine_color_term = 239
+" let g:indentLine_color_term = 239
 
-
-" Configuração COC.nvim
-set updatetime=300
-set shortmess+=c
-
-inoremap <silent><expr> <c-space> coc#refresh()
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-noremap <silent><expr> <c-space> coc#refresh()
-inoremap <expr> <C-j> pumvisible() ? '<C-n>' : ''
-inoremap <expr> <C-k> pumvisible() ? '<C-p>' : ''
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : 
-            \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-let g:coc_snippet_next = '<TAB>'
-let g:coc_snippet_prev = '<S-TAB>'
-
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <leader>rn <Plug>(coc-rename)
-nmap <leader>ac <Plug>(coc-codeaction)
-
-nmap <silent> <K> :call <SID>show_documentation()<CR>
-
-
-function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-        execute 'h '.expand('<cword>')
-    else
-        call CocAction('doHover')
-    endif
-endfunction
-
-command! -nargs=0 Format :call CocAction('format')
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-augroup CocGroup
-    autocmd!
-    " Setup formatexpr specified filetype(s).
-    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-    " Update signature help on jump placeholder
-    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-"[2]
+"[1]
 " Configuração Syntastics
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
