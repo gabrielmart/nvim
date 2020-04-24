@@ -4,22 +4,20 @@ if $COLORTERM == 'xterm-256color'
 endif
 
 call plug#begin()
-Plug 'scrooloose/nerdtree'
-Plug 'majutsushi/tagbar'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-Plug 'yggdroot/indentline'
-Plug 'ctrlpvim/ctrlp.vim'
-" Plug 'honza/vim-snippets'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'jiangmiao/auto-pairs'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'scrooloose/syntastic'
-Plug 'ryanoasis/vim-devicons'
-Plug 'dracula/vim', { 'name': 'dracula' }
-Plug 'andreypopp/vim-colors-plain'
-
+    Plug 'scrooloose/nerdtree'
+    Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'majutsushi/tagbar'
+    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-surround'
+    Plug 'yggdroot/indentline'
+    Plug 'jiangmiao/auto-pairs'
+    Plug 'andreypopp/vim-colors-plain'
+    Plug 'ryanoasis/vim-devicons'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    " Plug 'honza/vim-snippets'
+    " Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    " Plug 'scrooloose/syntastic'
 call plug#end()
 
 let g:airline_theme='minimalist'
@@ -35,6 +33,7 @@ set relativenumber
 set cursorline
 set matchpairs+=<:>
 set linebreak
+set breakindent
 
 " Configuração para busca
 set ignorecase
@@ -66,16 +65,18 @@ nnoremap <C-L> <C-W>l
 nnoremap <C-H> <C-W>h
 nnoremap <C-N> <C-W>n
 nnoremap <C-O> :vsplit <CR>
+nnoremap <C-U> :split <CR>
 nnoremap <C-C> <C-W>c
 noremap <silent> <A-Right>  <C-w>>
 noremap <silent> <A-Left> <C-w><
 noremap <silent> <A-Up> <C-w>+
 noremap <silent> <A-Down> <C-w>-
-" Configuração para Tabs
 
+" Configuração para Tabs
 map <leader>t :tabnew <CR>
 map <leader>l :tabnext <cr>
 map <leader>h :tabprevious <cr>
+map <leader>c :tabclose  <cr>
 
 " Comando para abrir terminal
 nmap <leader>' :term <CR>
@@ -85,12 +86,12 @@ nnoremap <A-j> :m .+1<CR>==
 nnoremap <A-k> :m .-2<CR>==
 
 " Move linha no mode de inserção
-" inoremap <A-k> <Esc>:m .-2<CR>==gi
-" inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+inoremap <A-j> <Esc>:m .+1<CR>==gi
 
 " Move multiplas linhas selecionadas
-" vnoremap <A-j> :m '>+1<CR>gv=gv
-" vnoremap <A-k> :m '<-2<CR>gv=gv
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
 
 " Configura a clipboard
 set clipboard+=unnamedplus 
@@ -108,23 +109,3 @@ nnoremap <F12> :source % <CR> :echo "VIMRC CARREGADO!" <CR>
 " Configuração para indentLine
 " Escolhe o caracter da marcação da identação
 let g:indentLine_char = '│'
-
-" Desabilita cor default
-let g:indentLine_setColors = 0
-
-" Escolhe uma cor para o caracter da identação
-" let g:indentLine_color_term = 239
-
-"[1]
-" Configuração Syntastics
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_check_on_open = 1
-
-let g:syntastic_javascript_checkers = ['eslint']
-
