@@ -37,7 +37,7 @@ colorscheme dracula
 set encoding=utf-8
 set hidden " Oculta buffers quando são abandonados
 set tabstop=4 shiftwidth=4 softtabstop=4 expandtab 
-set relativenumber
+set number relativenumber
 set cursorline
 set matchpairs+=<:>
 set linebreak
