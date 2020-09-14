@@ -1,9 +1,9 @@
-" Definição do mapleader
-let mapleader = "z"
 
 
 " Vim Plug
 call plug#begin()
+
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'scrooloose/nerdtree'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'majutsushi/tagbar'
@@ -16,13 +16,14 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'mattn/emmet-vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'sheerun/vim-polyglot'
+Plug 'airblade/vim-gitgutter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'honza/vim-snippets'
-" Plug 'scrooloose/syntastic'
 call plug#end()
+
+" Definição do mapleader
+let mapleader = "z"
 
 " Ativa as cores no terminal
 if $COLORTERM == 'xterm-256color'
@@ -69,28 +70,24 @@ nmap <A-t> :TagbarToggle<CR>
 map <leader>n  :NERDTreeToggle<CR>
 
 " Move entre janelas
+" Criação de janelas na vertical
 nnoremap <C-O> :vsplit <CR>
+" Criação de janelas na horizontal
 nnoremap <C-U> :split <CR>
-nnoremap <C-C> <C-W>c
+" Fecha janelas
+nnoremap <C-C> <C-W>c 
 
-nnoremap <C-S-K> <C-W>t <C-W>k
-
-nnoremap <C-J> <C-W>j
-nnoremap <C-K> <C-W>k
-nnoremap <C-L> <C-W>l
-nnoremap <C-H> <C-W>h
-nnoremap <C-N> <C-W>n
-
-noremap <silent> <A-Right>  <C-w>>
-noremap <silent> <A-Left> <C-w><
-noremap <silent> <A-Up> <C-w>+
-noremap <silent> <A-Down> <C-w>-
+" Aumenta ou diminui o tamanho das janelas
+noremap <silent> <C-S-Right>  <C-w>>
+noremap <silent> <C-S-Left> <C-w><
+noremap <silent> <C-S-Up> <C-w>+
+noremap <silent> <C-S-Down> <C-w>-
 
 " Configuração para Tabs
-map <leader>t :tabnew <CR>
-map <leader>c :tabclose  <cr>
-map <leader>l :tabnext <cr>
-map <leader>h :tabprevious <cr>
+map <leader>t : tabnew <CR>
+map <leader>c : tabclose  <cr>
+map <leader>l : tabnext <cr>
+map <leader>h : tabprevious <cr>
 
 " Comando para abrir terminal
 " nmap <leader>' :term <CR>
@@ -128,21 +125,10 @@ nnoremap <F12> :source % <CR> :echo "VIMRC CARREGADO!" <CR>
 " Escolhe o caracter da marcação da identação
 let g:indentLine_char = '│'
 
-
-
 " Configurações COC
 " Use <c-space> to trigger completion.
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
 else
   inoremap <silent><expr> <c-@> coc#refresh()
-endif
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
