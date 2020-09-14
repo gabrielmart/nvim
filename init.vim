@@ -1,15 +1,6 @@
 " Definição do mapleader
 let mapleader = "z"
 
-" Ativa as cores no terminal
-if $COLORTERM == 'xterm-256color'
-    set t_Co=256
-endif
-
-syntax on
-set termguicolors
-set background=dark
-colorscheme dracula
 
 " Vim Plug
 call plug#begin()
@@ -27,10 +18,21 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mattn/emmet-vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'sheerun/vim-polyglot'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'honza/vim-snippets'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'scrooloose/syntastic'
 call plug#end()
+
+" Ativa as cores no terminal
+if $COLORTERM == 'xterm-256color'
+    set t_Co=256
+endif
+
+syntax on
+set termguicolors
+set background=dark
+colorscheme dracula
 
 set encoding=utf-8
 set hidden " Oculta buffers quando são abandonados
@@ -122,3 +124,22 @@ nnoremap <F12> :source % <CR> :echo "VIMRC CARREGADO!" <CR>
 " Configuração para indentLine
 " Escolhe o caracter da marcação da identação
 let g:indentLine_char = '│'
+
+
+
+" Configurações COC
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
