@@ -43,6 +43,9 @@ set matchpairs+=<:>
 set linebreak
 set breakindent
 
+" Configuração do delay do ESC
+set timeoutlen=1000 ttimeoutlen=0
+
 " Configuração para busca
 set ignorecase
 set hlsearch
