@@ -1,25 +1,36 @@
-
-
 " Vim Plug
 call plug#begin()
 
-Plug 'christoomey/vim-tmux-navigator'
+" Navegação
 Plug 'scrooloose/nerdtree'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'majutsushi/tagbar'
+Plug 'christoomey/vim-tmux-navigator'
+
+" Utilitarios
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-Plug 'yggdroot/indentline'
 Plug 'godlygeek/tabular'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
-Plug 'ryanoasis/vim-devicons'
+
+" Temas
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-Plug 'sheerun/vim-polyglot'
+
+" Git
 Plug 'airblade/vim-gitgutter'
+
+" Syntax e Autocomplete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'sheerun/vim-polyglot'
+Plug 'honza/vim-snippets'
+Plug 'yggdroot/indentline'
+
+" Lint
+Plug 'dense-analysis/ale'
+
 call plug#end()
 
 " Definição do mapleader
@@ -35,6 +46,8 @@ set termguicolors
 set background=dark
 colorscheme dracula
 
+set nocompatible
+filetype plugin indent on
 set encoding=utf-8
 set hidden " Oculta buffers quando são abandonados
 set tabstop=4 shiftwidth=4 softtabstop=4 expandtab 
@@ -89,9 +102,6 @@ map <leader>c : tabclose  <cr>
 map <leader>l : tabnext <cr>
 map <leader>h : tabprevious <cr>
 
-" Comando para abrir terminal
-" nmap <leader>' :term <CR>
-
 " Move uma unica linha
 nnoremap <A-j> :m .+1<CR>==
 nnoremap <A-k> :m .-2<CR>==
@@ -109,10 +119,7 @@ set clipboard+=unnamedplus
 
 " Não insere comentario em uma nova linha
 set formatoptions-=cro
-
-" Comando para identar arquivo
-" map <A-i> mqHmwgg=G`wzt`q :echo 'IDENTAÇÃO REALIZADA' <CR>
-
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Limpa highlight da busca
 nnoremap <F3> :set hlsearch!<CR>
@@ -125,10 +132,60 @@ nnoremap <F12> :source % <CR> :echo "VIMRC CARREGADO!" <CR>
 " Escolhe o caracter da marcação da identação
 let g:indentLine_char = '│'
 
+" Plugins Config
 " Configurações COC
 " Use <c-space> to trigger completion.
 if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
+    inoremap <silent><expr> <c-space> coc#refresh()
 else
-  inoremap <silent><expr> <c-@> coc#refresh()
+    inoremap <silent><expr> <c-@> coc#refresh()
 endif
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+""Use tab e S-tab para navegar nos autocomplete
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+
+" ALE Config
+let g:ale_disable_lsp = 1 
+let g:airline#extensions#ale#enabled = 1
+
+let g:ale_linters = {
+    \   'ruby': ['standardrb', 'rubocop'],
+    \}

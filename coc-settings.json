@@ -1,7 +1,9 @@
 {
     "suggest.floatEnable": true,
-    "diagnostic.enable": false,
+    "diagnostic.enable": true,
     "editor.snippetSuggestions": "top",
+    "eslint.autoFixOnSave": "true",
+    "diagnostic.displayByAle": "true",
 
 }
 
