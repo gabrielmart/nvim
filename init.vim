@@ -5,6 +5,7 @@ call plug#begin()
 Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'ctrlpvim/ctrlp.vim'
 
 " Utilitarios
 Plug 'tpope/vim-commentary'
@@ -20,6 +21,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " Git
+Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
 " Syntax e Autocomplete
@@ -133,6 +135,7 @@ nnoremap <F12> :source % <CR> :echo "VIMRC CARREGADO!" <CR>
 let g:indentLine_char = '│'
 
 " Plugins Config
+
 " Configurações COC
 " Use <c-space> to trigger completion.
 if has('nvim')
