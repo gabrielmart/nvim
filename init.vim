@@ -15,7 +15,7 @@ Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 
 " Temas
-Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'smallwat3r/vim-hashpunk-sw'
 Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -46,7 +46,16 @@ endif
 syntax on
 set termguicolors
 set background=dark
-colorscheme dracula
+colorscheme hashpunk-sw
+let g:airline_theme='minimalist'
+
+hi Pmenu guibg=black
+hi PmenuSel ctermbg=gray guibg=#87ff00 guifg=black cterm=bold 
+hi PmenuThumb guibg=#87ff00 
+hi TabLine guibg=black guifg=#87ff00 gui=bold
+hi TabLineSel guibg=#87ff00 guifg=black gui=bold
+hi TabLineFill guibg=black gui=bold
+
 
 set nocompatible
 filetype plugin indent on
