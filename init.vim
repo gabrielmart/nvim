@@ -5,7 +5,8 @@ call plug#begin()
 Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 " Utilitarios
 Plug 'tpope/vim-commentary'
@@ -49,13 +50,13 @@ set background=dark
 colorscheme hashpunk-sw
 let g:airline_theme='minimalist'
 
+" Config colors autocomplete/tabBar
 hi Pmenu guibg=black
 hi PmenuSel ctermbg=gray guibg=#87ff00 guifg=black cterm=bold 
 hi PmenuThumb guibg=#87ff00 
 hi TabLine guibg=black guifg=#87ff00 gui=bold
 hi TabLineSel guibg=#87ff00 guifg=black gui=bold
 hi TabLineFill guibg=black gui=bold
-
 
 set nocompatible
 filetype plugin indent on
@@ -92,6 +93,10 @@ nmap <A-t> :TagbarToggle<CR>
 
 " Abre e fecha NerdTree
 map <leader>n  :NERDTreeToggle<CR>
+
+" FZF
+nmap <C-P> :Files<CR>
+nmap <C-S-P> :Ag<CR>
 
 " Move entre janelas
 " Criação de janelas na vertical
@@ -200,4 +205,5 @@ let g:airline#extensions#ale#enabled = 1
 
 let g:ale_linters = {
     \   'ruby': ['standardrb', 'rubocop'],
+    \   'python': ['flake8'],
     \}
