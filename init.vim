@@ -62,10 +62,11 @@ set nocompatible
 filetype plugin indent on
 set encoding=utf-8
 set hidden " Oculta buffers quando são abandonados
-set tabstop=4 shiftwidth=4 softtabstop=4 expandtab 
+set tabstop=2 shiftwidth=2 softtabstop=2 expandtab 
 set number relativenumber
 set cursorline
 set matchpairs+=<:>
+set guicursor+=n-v-c:blinkon1
 set linebreak
 set breakindent
 
@@ -79,6 +80,10 @@ set incsearch
 set smartcase
 set autoindent
 set smartindent
+
+" Move in wrapping line
+nnoremap j gj
+nnoremap k gk
 
 " Configuração para não gerar backup ou swapfiles
 set nobackup
@@ -142,6 +147,7 @@ nnoremap <F3> :set hlsearch!<CR>
 
 " Comando para recarregar .vimrc
 nnoremap <F12> :source % <CR> :echo "VIMRC CARREGADO!" <CR>
+nnoremap <F10> :split ~/.config/nvim/init.vim <CR> :echo "VIMRC CARREGADO!" <CR>
 
 
 " Configuração para indentLine
@@ -206,4 +212,5 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_linters = {
     \   'ruby': ['standardrb', 'rubocop'],
     \   'python': ['flake8'],
+    \   'javascript': ['eslint']
     \}
