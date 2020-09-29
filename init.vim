@@ -8,7 +8,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-" Utilitarios
+ " Utilitarios
 Plug 'tpope/vim-commentary'
 Plug 'godlygeek/tabular'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
@@ -101,7 +101,7 @@ map <leader>n  :NERDTreeToggle<CR>
 
 " FZF
 nmap <C-P> :Files<CR>
-nmap <C-S-P> :Ag<CR>
+nmap <C-g> :Ag<CR>
 
 " Move entre janelas
 " Criação de janelas na vertical
@@ -139,7 +139,7 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 set clipboard+=unnamedplus 
 
 " Não insere comentario em uma nova linha
-set formatoptions-=cro
+" set formatoptions-=cro
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Limpa highlight da busca
@@ -214,3 +214,9 @@ let g:ale_linters = {
     \   'python': ['flake8'],
     \   'javascript': ['eslint']
     \}
+
+" Airline
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#capslock#enabled = 1
+" let g:airline#extensions#tabline#formatter = 'jsformatter'
+" let g:airline#extensions#tabline#left_alt_sep = '|'
