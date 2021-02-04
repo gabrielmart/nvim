@@ -8,7 +8,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
- " Utilitarios
+" Utilitarios
 Plug 'tpope/vim-commentary'
 Plug 'godlygeek/tabular'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
@@ -16,7 +16,7 @@ Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 
 " Temas
-Plug 'smallwat3r/vim-hashpunk-sw'
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -28,7 +28,6 @@ Plug 'airblade/vim-gitgutter'
 " Syntax e Autocomplete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sheerun/vim-polyglot'
-Plug 'honza/vim-snippets'
 Plug 'yggdroot/indentline'
 
 " Lint
@@ -47,16 +46,8 @@ endif
 syntax on
 set termguicolors
 set background=dark
-colorscheme hashpunk-sw
-let g:airline_theme='minimalist'
-
-" Config colors autocomplete/tabBar
-hi Pmenu guibg=black
-hi PmenuSel ctermbg=gray guibg=#87ff00 guifg=black cterm=bold 
-hi PmenuThumb guibg=#87ff00 
-hi TabLine guibg=black guifg=#87ff00 gui=bold
-hi TabLineSel guibg=#87ff00 guifg=black gui=bold
-hi TabLineFill guibg=black gui=bold
+colorscheme dracula
+let g:airline_theme='dracula'
 
 set nocompatible
 filetype plugin indent on
@@ -185,10 +176,10 @@ imap <C-l> <Plug>(coc-snippets-expand)
 vmap <C-j> <Plug>(coc-snippets-select)
 
 " Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<c-j>'
+let g:coc_snippet_next = '<A-l>'
 
 " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<c-k>'
+let g:coc_snippet_prev = '<A-h>'
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
@@ -203,20 +194,3 @@ nmap <leader>rn <Plug>(coc-rename)
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-
-" ALE Config
-let g:ale_disable_lsp = 1 
-let g:airline#extensions#ale#enabled = 1
-
-let g:ale_linters = {
-    \   'ruby': ['standardrb', 'rubocop'],
-    \   'python': ['flake8'],
-    \   'javascript': ['eslint']
-    \}
-
-" Airline
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#capslock#enabled = 1
-" let g:airline#extensions#tabline#formatter = 'jsformatter'
-" let g:airline#extensions#tabline#left_alt_sep = '|'
